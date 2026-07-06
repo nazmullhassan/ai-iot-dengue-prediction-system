@@ -181,9 +181,6 @@ Dengue Dataset Bangladesh (Kaggle)
 - Clinical validation using real patient data
 
 ---
-
-## License
-
 ## License
 
 Copyright © 2026 Nazmul Hassan.
