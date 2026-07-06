@@ -216,3 +216,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+.env
+__pycache__/
+*.pyc
+venv/
+.DS_Store
+.ipynb_checkpoints/
+*.zip
+*.rar
+*.7z
