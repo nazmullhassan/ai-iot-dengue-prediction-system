@@ -225,3 +225,26 @@ venv/
 *.zip
 *.rar
 *.7z
+# =============================================================
+# Project-specific ignores
+# AI-IoT Dengue Prediction System
+# =============================================================
+
+# VS Code local workspace settings
+.vscode/
+
+# Kaggle raw dataset should not be redistributed
+data/raw/*.csv
+
+# Processed generated datasets
+data/processed/*.csv
+
+# Trained models and generated outputs
+models/*.pkl
+models/*.joblib
+models/*.h5
+models/*.keras
+
+# Large generated result files
+results/*.csv
+results/*.xlsx
