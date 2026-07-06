@@ -7,6 +7,8 @@ from pathlib import Path
 
 import joblib
 import pandas as pd
+import matplotlib.pyplot as plt
+
 from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
@@ -17,7 +19,10 @@ TRAIN_DATA = PROJECT_ROOT / "data" / "processed" / "train_dataset.csv"
 TEST_DATA = PROJECT_ROOT / "data" / "processed" / "test_dataset.csv"
 
 MODEL_DIR = PROJECT_ROOT / "models"
+RESULTS_DIR = PROJECT_ROOT / "results"
+
 MODEL_DIR.mkdir(exist_ok=True)
+RESULTS_DIR.mkdir(exist_ok=True)
 
 TARGET = "Outcome"
 
@@ -36,7 +41,6 @@ def load_data():
 
 
 def train_model():
-
     X_train, X_test, y_train, y_test = load_data()
 
     model = XGBClassifier(
@@ -44,13 +48,12 @@ def train_model():
         n_estimators=100,
         max_depth=5,
         learning_rate=0.1,
-        eval_metric="logloss"
+        eval_metric="logloss",
     )
 
     model.fit(X_train, y_train)
 
     predictions = model.predict(X_test)
-
     accuracy = accuracy_score(y_test, predictions)
 
     print("\nAccuracy:", round(accuracy * 100, 2), "%")
@@ -61,9 +64,40 @@ def train_model():
     print("\nConfusion Matrix\n")
     print(confusion_matrix(y_test, predictions))
 
+    save_feature_importance(model, X_train.columns)
+
     joblib.dump(model, MODEL_DIR / "xgboost_model.pkl")
 
     print("\nModel saved successfully.")
+
+
+def save_feature_importance(model, feature_names):
+    importance_df = pd.DataFrame(
+        {
+            "Feature": feature_names,
+            "Importance": model.feature_importances_,
+        }
+    ).sort_values(by="Importance", ascending=False)
+
+    print("\nFeature Importance")
+    print(importance_df)
+
+    importance_df.to_csv(
+        RESULTS_DIR / "xgboost_feature_importance.csv",
+        index=False,
+    )
+
+    plt.figure(figsize=(10, 6))
+    plt.barh(importance_df["Feature"], importance_df["Importance"])
+    plt.xlabel("Importance")
+    plt.ylabel("Feature")
+    plt.title("XGBoost Feature Importance")
+    plt.gca().invert_yaxis()
+    plt.tight_layout()
+    plt.savefig(RESULTS_DIR / "xgboost_feature_importance.png", dpi=300)
+    plt.close()
+
+    print("\nFeature importance saved successfully.")
 
 
 if __name__ == "__main__":
