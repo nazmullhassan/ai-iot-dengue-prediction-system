@@ -193,6 +193,7 @@ This project is released for academic and research purposes.
 **Nazmul Hassan**
 
 Senior Engineer (IT)
+Dhaka Metro Rail Line-5, Northern Route (NKB)
 
 M.Sc. in CSE (Cybersecurity)
 
