@@ -184,7 +184,20 @@ Dengue Dataset Bangladesh (Kaggle)
 
 ## License
 
-This project is released for academic and research purposes.
+## License
+
+Copyright © 2026 Nazmul Hassan.
+
+**All Rights Reserved.**
+
+This repository is provided for academic reference only.
+
+No part of this project may be copied, modified, redistributed, or used in commercial or non-commercial applications without prior written permission from the author.
+
+For licensing inquiries, please contact:
+
+**Nazmul Hassan**  
+Email: nzrub.bd@gmail.com
 
 ---
 
